@@ -5,25 +5,33 @@ import Image from "next/image";
 import { sidebarLinks } from "@/constants";
 import { SignedOut } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
 
 const NavContent = () => {
+  const pathname = usePathname();
+
   return (
     <section className="flex flex-1 flex-col gap-6">
       {sidebarLinks.map(({ imgURL, route, label }) => {
+        const isActive =
+          (pathname.includes(route) && route.length > 1) || pathname === route;
+
         return (
           <Link
             href={route}
             key={route}
-            className="flex items-center justify-start gap-4 p-4"
+            className={`${isActive ? "primary-gradient rounded-lg text-light-900" : "text-dark300_light900"} flex items-center justify-start gap-4 p-4`}
           >
             <Image
               src={imgURL}
               alt={label}
               height={20}
               width={20}
-              className="invert-colors"
+              className={`${isActive ? "" : "invert-colors"}`}
             />
-            <p className="base-medium">{label}</p>
+            <p className={`${isActive ? "base-bold" : "base-medium"}`}>
+              {label}
+            </p>
           </Link>
         );
       })}
