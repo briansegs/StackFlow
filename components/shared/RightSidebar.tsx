@@ -1,28 +1,57 @@
 import Link from "next/link";
 import Image from "next/image";
+import RenderTag from "./RenderTag";
 import React from "react";
 
 const hotQuestions = [
   {
-    id: 1,
+    _id: 1,
     title:
       "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
   },
   {
-    id: 2,
+    _id: 2,
     title: "Is it only me or the font is bolder than necessary?",
   },
   {
-    id: 3,
+    _id: 3,
     title: "Redux Toolkit Not Updating State as Expected",
   },
   {
-    id: 4,
+    _id: 4,
     title: "Can I get the course for free?",
   },
   {
-    id: 5,
+    _id: 5,
     title: "Async/Await Function Not Handling Errors Properly",
+  },
+];
+
+const popularTags = [
+  {
+    _id: 1,
+    name: "Javascript",
+    totalQuestions: 5,
+  },
+  {
+    _id: 2,
+    name: "react",
+    totalQuestions: 12,
+  },
+  {
+    _id: 3,
+    name: "next",
+    totalQuestions: 8,
+  },
+  {
+    _id: 4,
+    name: "vue",
+    totalQuestions: 2,
+  },
+  {
+    _id: 5,
+    name: "redux",
+    totalQuestions: 3,
   },
 ];
 
@@ -32,10 +61,10 @@ const RightSidebar = () => {
       <div>
         <h3 className="h3-bold text-dark200_light900">Top Questions</h3>
         <div className="mt-7 flex w-full flex-col gap-[30px]">
-          {hotQuestions.map(({ id, title }) => (
+          {hotQuestions.map(({ _id, title }) => (
             <Link
-              href={`/questions/${id}`}
-              key={id}
+              href={`/questions/${_id}`}
+              key={_id}
               className="flex cursor-pointer items-center justify-between gap-7"
             >
               <p className="body-medium text-dark500_light700">{title}</p>
@@ -52,7 +81,17 @@ const RightSidebar = () => {
       </div>
       <div className="mt-16">
         <h3 className="h3-bold text-dark200_light900">Popular Tags</h3>
-        <div className="mt-7 flex flex-col gap-4"></div>
+        <div className="mt-7 flex flex-col gap-4">
+          {popularTags.map(({ _id, name, totalQuestions }) => (
+            <RenderTag
+              key={_id}
+              name={name}
+              totalQuestions={totalQuestions}
+              _id={_id}
+              showCount
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
