@@ -1,5 +1,5 @@
 # StackFlow - A modern Next.js clone of Stack Overflow
-![site image](https://github.com/briansegs/portfolio-03/blob/main/assets/projects/project1.png)
+![site image](https://github.com/briansegs/StackFlow/blob/main/public/assets/images/project1.png)
 
 ### Demo:
 Currently under construction
