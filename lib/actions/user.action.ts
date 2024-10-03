@@ -59,7 +59,7 @@ export async function updateUser(params: UpdateUserParams) {
       updateData,
       path,
     });
-    await User.findByIdAndUpdate({ clerkId }, updateData, {
+    await User.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
     });
 
@@ -80,7 +80,7 @@ export async function deleteUser(params: DeleteUserParams) {
     const { clerkId } = params;
 
     console.log("Deleting user with clerkId:", clerkId);
-    const user = await User.findByIdAndDelete({ clerkId });
+    const user = await User.findOneAndDelete({ clerkId });
 
     if (!user) {
       throw new Error("User not found");
