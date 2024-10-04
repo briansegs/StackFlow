@@ -53,23 +53,12 @@ export async function POST(req: Request) {
 
   // Do something with the payload
   // For this guide, you simply log the payload to the console
-  const { id } = evt.data;
   const eventType = evt.type;
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-  console.log("Webhook body:", body);
 
   if (eventType === "user.created") {
-    console.log("Enter if block: user.created");
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
 
-    console.log("Creating new user with the following data:", {
-      clerkId: id,
-      name: `${first_name}${last_name ? ` ${last_name}` : ""}`,
-      username: username!,
-      email: email_addresses[0].email_address,
-      picture: image_url,
-    });
     // create a new user in your database
     const mongoUser = await createUser({
       clerkId: id,
@@ -79,27 +68,13 @@ export async function POST(req: Request) {
       picture: image_url,
     });
 
-    console.log("Created mongoUser:", mongoUser);
-    console.log("Returning NextResponse.");
-
     return NextResponse.json({ message: "OK", user: mongoUser });
   }
 
   if (eventType === "user.updated") {
-    console.log("Enter if block: user.updated");
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
 
-    console.log("Updating user with the following data:", {
-      clerkId: id,
-      updateData: {
-        name: `${first_name}${last_name ? ` ${last_name}` : ""}`,
-        username: username!,
-        email: email_addresses[0].email_address,
-        picture: image_url,
-      },
-      path: `/profile/${id}`,
-    });
     // Updating a user in your database
     const mongoUser = await updateUser({
       clerkId: id,
@@ -112,26 +87,16 @@ export async function POST(req: Request) {
       path: `/profile/${id}`,
     });
 
-    console.log("updated mongoUser:", mongoUser);
-    console.log("Returning NextResponse.");
-
     return NextResponse.json({ message: "OK", user: mongoUser });
   }
 
   if (eventType === "user.deleted") {
-    console.log("Enter if block: user.deleted");
     const { id } = evt.data;
 
-    console.log("Deleting user with the following data:", {
-      clerkId: id,
-    });
     // delete a user in your database
     const deletedUser = await deleteUser({
       clerkId: id!,
     });
-
-    console.log("Deleted mongoUser:", deletedUser);
-    console.log("Returning NextResponse.");
 
     return NextResponse.json({ message: "OK", user: deletedUser });
   }

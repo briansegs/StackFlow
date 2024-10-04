@@ -18,24 +18,21 @@ const isIgnoredRoute = createRouteMatcher(["/api/webhook", "/api/chatgpt"]);
 
 export default clerkMiddleware(async (auth, req) => {
   const url = req.nextUrl.pathname; // Access the pathname instead of the full URL
-  console.log(`Incoming request for: ${url}`);
 
   // Check if the route is ignored
   if (isIgnoredRoute(req)) {
-    console.log(`Route ${url} is ignored. No authentication required.`);
-    return; // Bypass authentication for ignored routes
+    return;
   }
 
   if (isProtectedRoute(req)) {
-    console.log(`Route ${url} is protected. Authentication required.`);
     // Protect only protected routes
     await auth().protect(); // Ensure to await the authentication check
   } else if (isPublicRoute(req)) {
-    console.log(`Route ${url} is public. No authentication required.`);
-    // Public routes do not require authentication
+    // eslint-disable-next-line no-useless-return
+    return;
   } else {
-    console.log(`Route ${url} does not match any defined route types.`);
-    // Handle other routes if needed
+    console.error(`Route ${url} does not match any defined route types.`);
+    throw new Error(`Unauthorized route access: ${url}`);
   }
 });
 

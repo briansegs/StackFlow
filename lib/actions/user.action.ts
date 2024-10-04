@@ -11,75 +11,59 @@ import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 
 export async function getUserById(params: any) {
-  console.log("Entering function getUserById with params:", params);
   try {
     await connectToDatabase();
-    console.log("Connected to database.");
 
     const { userId } = params;
 
-    console.log("Finding user with id:", userId);
+    // Find user by Clerk ID
     const user = await User.findOne({ clerkId: userId });
-
-    console.log("Found and returning user:", user);
     return user;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 }
 
 export async function createUser(userData: CreateUserParams) {
-  console.log("Entering function createUser with userData:", userData);
   try {
     await connectToDatabase();
-    console.log("Connected to database.");
 
-    console.log("creating user with userData:", userData);
+    // Create a new user in the database
     const newUser = await User.create(userData);
-
-    console.log("Created and returning newUser:", newUser);
     return newUser;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 }
 
 export async function updateUser(params: UpdateUserParams) {
-  console.log("Entering function updateUser with params:", params);
   try {
     await connectToDatabase();
-    console.log("Connected to database.");
 
     const { clerkId, updateData, path } = params;
 
-    console.log("Finding and updating user with data:", {
-      clerkId,
-      updateData,
-      path,
-    });
+    // Find and update user with new data
     await User.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
     });
 
-    console.log("User updated. revalidating Path:", path);
+    // Revalidate the path to update cached data
     revalidatePath(path);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 }
 
 export async function deleteUser(params: DeleteUserParams) {
-  console.log("Entering function deleteUser with params:", params);
   try {
     await connectToDatabase();
-    console.log("Connected to database.");
 
     const { clerkId } = params;
 
-    console.log("Deleting user with clerkId:", clerkId);
+    // Find and delete the user by Clerk ID
     const user = await User.findOneAndDelete({ clerkId });
 
     if (!user) {
@@ -95,17 +79,13 @@ export async function deleteUser(params: DeleteUserParams) {
     // );
 
     // delete user questions
-    console.log("Deleting user Questions with author:", { author: user._id });
     await Question.deleteMany({ author: user._id });
 
     // TODO: delete user answers, comments, etc.
-    console.log("Deleting user with id:", user._id);
     const deletedUser = await User.findByIdAndDelete(user._id);
-
-    console.log("User deleted. Returning deletedUser:", deleteUser);
     return deletedUser;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 }
