@@ -32,7 +32,6 @@ export default clerkMiddleware(async (auth, req) => {
     return;
   } else {
     console.error(`Route ${url} does not match any defined route types.`);
-    throw new Error(`Unauthorized route access: ${url}`);
   }
 });
 
