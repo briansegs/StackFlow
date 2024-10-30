@@ -5,6 +5,7 @@ import {
   downvoteQuestion,
   upvoteQuestion,
 } from "@/lib/actions/question.action";
+import { toggleSaveQuestion } from "@/lib/actions/user.action";
 import { formatBigNumber } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -34,7 +35,13 @@ const Votes = ({
   // eslint-disable-next-line no-unused-vars
   const router = useRouter();
 
-  const handleSave = () => {};
+  const handleSave = async () => {
+    await toggleSaveQuestion({
+      userId: JSON.parse(userId),
+      questionId: JSON.parse(itemId),
+      path: pathname,
+    });
+  };
 
   const handleVote = async (action: string) => {
     if (!userId) {
@@ -146,7 +153,7 @@ const Votes = ({
           width={18}
           height={18}
           className="cursor-pointer"
-          onClick={() => handleSave}
+          onClick={handleSave}
         />
       )}
     </div>
