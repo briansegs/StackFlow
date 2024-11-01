@@ -10,7 +10,7 @@ interface QuestionCardProps {
   _id: string;
   title: string;
   tags: { _id: string; name: string }[];
-  author: { _id: string; name: string; picture: string };
+  author: { _id: string; name: string; picture: string; clerkId: string };
   upvotes: string[];
   views: number;
   answers: object[];
