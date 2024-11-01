@@ -1,52 +1,54 @@
-import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
-import Filter from "@/components/shared/Filter";
-import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/cards/QuestionCard";
-import { QuestionFilters } from "@/constants/filters";
-import { getSavedQuestions } from "@/lib/actions/user.action";
-import { auth } from "@clerk/nextjs/server";
+import NoResult from "@/components/shared/NoResult";
+import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
+import { getQuestionsByTagId } from "@/lib/actions/tag.actions";
+import { URLProps } from "@/types";
+import React from "react";
 
-interface QuestionCardProps {
+interface QuestionProps {
   _id: string;
   title: string;
-  tags: { _id: string; name: string }[];
-  author: { _id: string; name: string; picture: string; clerkId: string };
+  tags: {
+    _id: string;
+    name: string;
+  }[];
+  author: {
+    _id: string;
+    name: string;
+    picture: string;
+    clerkId: string;
+  };
   upvotes: string[];
   views: number;
-  answers: object[];
+  answers: Array<object>;
   createdAt: Date;
+  clerkId?: string | null;
 }
 
-export default async function Home() {
-  const { userId } = auth();
-
-  if (!userId) return null;
-
-  const result = await getSavedQuestions({
-    clerkId: userId,
+const Page = async ({ params, searchParams }: URLProps) => {
+  const result = await getQuestionsByTagId({
+    tagId: params.id,
+    page: 1,
+    searchQuery: searchParams.q,
   });
 
   return (
     <>
-      <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
+      <h1 className="h1-bold text-dark100_light900">{result.tagTitle}</h1>
 
-      <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
+      <div className="mt-11 w-full">
         <LocalSearchbar
           route="/"
           iconPosition="left"
           imgSrc="/assets/icons/search.svg"
-          placeholder="Search for questions"
+          placeholder="Search for tag questions"
           otherClasses="flex-1"
-        />
-        <Filter
-          filters={QuestionFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
         />
       </div>
 
       <div className="mt-10 flex w-full flex-col gap-6">
         {result.questions.length > 0 ? (
-          result.questions.map((question: QuestionCardProps) => (
+          result.questions.map((question: QuestionProps) => (
             <QuestionCard
               key={question._id}
               _id={question._id}
@@ -61,7 +63,7 @@ export default async function Home() {
           ))
         ) : (
           <NoResult
-            title="There's no questions saved to show"
+            title="There's no tag questions saved to show"
             description="Be the first to break the silence! 🚀 Ask a Question and kickstart the
           discussion. Our query could be the next big thing others learn from. Get
           involved. 💡"
@@ -72,4 +74,6 @@ export default async function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Page;
