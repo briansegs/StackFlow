@@ -3,6 +3,7 @@ import Link from "next/link";
 import Metric from "../shared/search/Metric";
 import { formatBigNumber, getTimestamp } from "@/lib/utils";
 import { SignedIn } from "@clerk/nextjs";
+import EditDeleteAction from "../shared/EditDeleteAction";
 // import EditDeleteAction from "../shared/EditDeleteAction";
 
 interface Props {
@@ -30,7 +31,6 @@ const AnswerCard = ({
   upvotes,
   createdAt,
 }: Props) => {
-  // eslint-disable-next-line no-unused-vars
   const showActionButtons = clerkId && clerkId === author.clerkId;
 
   return (
@@ -49,10 +49,9 @@ const AnswerCard = ({
         </div>
 
         <SignedIn>
-          Delete
-          {/* {showActionButtons && (
+          {showActionButtons && (
             <EditDeleteAction type="Answer" itemId={JSON.stringify(_id)} />
-          )} */}
+          )}
         </SignedIn>
       </div>
 
