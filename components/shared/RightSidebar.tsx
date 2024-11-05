@@ -2,30 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import RenderTag from "./RenderTag";
 import React from "react";
-
-const hotQuestions = [
-  {
-    _id: "1",
-    title:
-      "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
-  },
-  {
-    _id: "2",
-    title: "Is it only me or the font is bolder than necessary?",
-  },
-  {
-    _id: "3",
-    title: "Redux Toolkit Not Updating State as Expected",
-  },
-  {
-    _id: "4",
-    title: "Can I get the course for free?",
-  },
-  {
-    _id: "5",
-    title: "Async/Await Function Not Handling Errors Properly",
-  },
-];
+import { getHotQuestions } from "@/lib/actions/question.action";
 
 const popularTags = [
   {
@@ -55,7 +32,9 @@ const popularTags = [
   },
 ];
 
-const RightSidebar = () => {
+const RightSidebar = async () => {
+  const hotQuestions = await getHotQuestions();
+
   return (
     <section className="light-border background-light900_dark200 custom-scrollbar sticky right-0 top-0 flex h-screen w-fit flex-col  gap-6 overflow-y-auto border-l p-6 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden lg:w-[350px]">
       <div>
@@ -63,7 +42,7 @@ const RightSidebar = () => {
         <div className="mt-7 flex w-full flex-col gap-[30px]">
           {hotQuestions.map(({ _id, title }) => (
             <Link
-              href={`/questions/${_id}`}
+              href={`/question/${_id}`}
               key={_id}
               className="flex cursor-pointer items-center justify-between gap-7"
             >
