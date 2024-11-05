@@ -183,6 +183,9 @@ export async function deleteQuestion(params: DeleteQuestionParams) {
       { $pull: { questions: questionId } }
     );
 
+    // Find and delete any tags with an empty `questions` array
+    await Tag.deleteMany({ questions: { $size: 0 } });
+
     revalidatePath(path);
   } catch (error) {
     console.log(error);
