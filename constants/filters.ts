@@ -20,10 +20,10 @@ export const QuestionFilters = [
 ];
 
 export const TagFilters = [
-  { name: "Popular", value: "popular" },
-  { name: "Recent", value: "recent" },
+  { name: "Most Popular", value: "popular" },
   { name: "Name", value: "name" },
-  { name: "Old", value: "old" },
+  { name: "Most Recent", value: "recent" },
+  { name: "Oldest", value: "old" },
 ];
 
 export const HomePageFilters = [

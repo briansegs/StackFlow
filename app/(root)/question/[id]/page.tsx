@@ -12,14 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-interface Props {
-  params: {
-    id: string;
-  };
-  searchParams?: string[];
-}
-
-const Page = async ({ params, searchParams }: Props) => {
+const Page = async ({ params, searchParams }: any) => {
   const { userId: clerkId } = auth();
 
   let mongoUser;
@@ -112,6 +105,8 @@ const Page = async ({ params, searchParams }: Props) => {
         questionId={result._id}
         userId={mongoUser._id}
         totalAnswers={result.answers.length}
+        page={searchParams?.page}
+        filter={searchParams?.filter}
       />
 
       <Answer
