@@ -21,14 +21,24 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
 
     if (!user) throw new Error("User not found");
 
+    const userQuestions = await Question.find({ author: user._id }).select(
+      "_id"
+    );
+    const userQuestionIds = userQuestions.map((question) => question._id);
+
+    const tagFilter: FilterQuery<typeof Tag> = {
+      questions: { $in: userQuestionIds },
+    };
+
+    const topTags = await Tag.find(tagFilter)
+      .select("_id name questions")
+      .limit(3)
+      .sort({ questions: -1 });
+
     // Find interactions for the user and group by tags...
     // Interaction...
 
-    return [
-      { _id: "1", name: "tag1" },
-      { _id: "2", name: "tag2" },
-      { _id: "3", name: "tag3" },
-    ];
+    return topTags;
   } catch (error) {
     console.log(error);
     throw error;
