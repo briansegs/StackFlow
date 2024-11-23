@@ -21,6 +21,7 @@ import Image from "next/image";
 import { createQuestion, editQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
+import { toast } from "@/hooks/use-toast";
 
 interface Props {
   type?: string;
@@ -65,6 +66,10 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
           path: pathname,
         });
 
+        toast({
+          title: "Question edited successfully",
+        });
+
         // navigate to edited question
         router.push(`/question/${parsedQuestionDetails._id}`);
       } else {
@@ -75,6 +80,11 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
           author: JSON.parse(mongoUserId),
           path: pathname,
         });
+
+        toast({
+          title: "Question created successfully",
+        });
+
         // navigate to homepage
         router.push("/");
       }
