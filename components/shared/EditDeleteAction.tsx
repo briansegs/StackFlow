@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "@/hooks/use-toast";
 import { deleteAnswer } from "@/lib/actions/answer.action";
 import { deleteQuestion } from "@/lib/actions/question.action";
 import Image from "next/image";
@@ -25,11 +26,21 @@ const EditDeleteAction = ({ type, itemId }: Props) => {
         questionId: JSON.parse(itemId),
         path: pathname,
       });
+
+      return toast({
+        title: "Question deleted successfully",
+        variant: "destructive",
+      });
     } else if (type === "Answer") {
       // Delete answer
       await deleteAnswer({
         answerId: JSON.parse(itemId),
         path: pathname,
+      });
+
+      return toast({
+        title: "Answer deleted successfully",
+        variant: "destructive",
       });
     }
   };
