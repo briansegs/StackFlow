@@ -52,7 +52,7 @@ const Theme = () => {
                   localStorage.removeItem("theme");
                 }
               }}
-              className="flex items-center gap-4 px-2.5 dark:focus:bg-dark-400"
+              className="flex cursor-pointer items-center gap-4 px-2.5 focus:bg-light-800 dark:focus:bg-dark-400"
             >
               <Image
                 src={item.icon}
