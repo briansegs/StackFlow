@@ -3,6 +3,11 @@ import LeftSidebar from "@/components/shared/LeftSidebar";
 import RightSidebar from "@/components/shared/RightSidebar";
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "DevFlow | Profile",
+};
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (

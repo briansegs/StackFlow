@@ -3,6 +3,11 @@ import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserById } from "@/lib/actions/user.action";
 import { ParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs/server";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "DevFlow | Edit Question",
+};
 
 const Page = async ({ params }: ParamsProps) => {
   const { userId } = auth();
