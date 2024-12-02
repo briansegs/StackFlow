@@ -16,6 +16,8 @@ const isPublicRoute = createRouteMatcher([
   "/profile/edit",
   "/community",
   "/jobs",
+  "/sign-up(.*)",
+  "/sign-in(.*)",
 ]);
 
 // Add ignored routes here
