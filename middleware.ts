@@ -5,12 +5,15 @@ const isProtectedRoute = createRouteMatcher(["/ask-question(.*)"]);
 const isPublicRoute = createRouteMatcher([
   "/",
   "/api/webhook",
-  "question/:id",
+  "/question/:id",
+  "/question/edit/:id",
   "/tags",
   "/tags/:id",
   "/profile/:id",
+  "/profile/edit",
   "/community",
   "/jobs",
+  "/collection",
 ]);
 
 // Add ignored routes here
