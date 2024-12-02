@@ -6,7 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "DevFlow | Edit Question",
+  title: "Dev Collective | Edit Question",
 };
 
 const Page = async ({ params }: ParamsProps) => {

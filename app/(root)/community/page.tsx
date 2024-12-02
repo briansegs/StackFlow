@@ -9,7 +9,7 @@ import Pagination from "@/components/shared/Pagination";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "DevFlow | Community",
+  title: "Dev Collective | Community",
 };
 
 const Page = async ({ searchParams }: SearchParamsProps) => {

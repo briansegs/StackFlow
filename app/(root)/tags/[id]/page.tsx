@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "DevFlow | Tags",
+  title: "Dev Collective | Tags",
 };
 
 interface QuestionProps {

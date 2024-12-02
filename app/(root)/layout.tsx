@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "DevFlow | Profile",
+  title: "Dev Collective | Profile",
 };
 
 const layout = ({ children }: { children: React.ReactNode }) => {

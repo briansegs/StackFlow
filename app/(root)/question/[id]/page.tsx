@@ -14,7 +14,7 @@ import Link from "next/link";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "DevFlow | Question",
+  title: "Dev Collective | Question",
 };
 
 const Page = async ({ params, searchParams }: any) => {

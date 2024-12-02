@@ -1,16 +1,23 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 // Define matchers for protected, public, and ignored routes
-const isProtectedRoute = createRouteMatcher(["/ask-question(.*)"]);
+const isProtectedRoute = createRouteMatcher([
+  "/ask-question(.*)",
+  "/question/:id",
+  "/collection",
+]);
 const isPublicRoute = createRouteMatcher([
   "/",
   "/api/webhook",
-  "question/:id",
+  "/question/edit/:id",
   "/tags",
   "/tags/:id",
   "/profile/:id",
+  "/profile/edit",
   "/community",
   "/jobs",
+  "/sign-up(.*)",
+  "/sign-in(.*)",
 ]);
 
 // Add ignored routes here
