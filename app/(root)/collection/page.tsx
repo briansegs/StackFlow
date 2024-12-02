@@ -10,7 +10,7 @@ import Pagination from "@/components/shared/Pagination";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "DevFlow | Collections",
+  title: "Dev Collective | Collections",
 };
 
 interface QuestionCardProps {
